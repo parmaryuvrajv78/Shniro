@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home | Shinro</title>
+
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(120deg, black, rgb(18, 31, 28));
+            color: white;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* ===== Top Navbar ===== */
+        .top-nav {
+            height: 70px;
+            margin: 15px;
+            padding: 0 30px;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            background: rgba(0, 0, 0, 0.45);
+            border-radius: 16px;
+            border: 1px solid rgba(144, 189, 194, 0.35);
+
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+
+            box-shadow: 0 0 25px rgba(144, 189, 194, 0.4);
+        }
+
+        /* ===== Logo (UNCHANGED) ===== */
+        .nav-left img {
+            height: 42px;
+            width: 42px;
+            border-radius: 50%;
+            object-fit: cover;
+
+            box-shadow:
+                0 0 12px rgba(144, 189, 194, 0.8),
+                inset 0 0 6px rgba(255, 255, 255, 0.3);
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        /* ===== Menu Icon ===== */
+        .menu-icon {
+            font-size: 26px;
+            cursor: pointer;
+            opacity: 0.75;
+            transition: all 0.3s ease;
+        }
+
+        .menu-icon:hover {
+            opacity: 1;
+            text-shadow: 0 0 10px rgba(144, 189, 194, 0.9);
+        }
+
+        /* ===== Hidden Menu ===== */
+        .nav-menu {
+            display: none;
+            
+            gap: 25px;
+        }
+
+        .nav-menu.active {
+            display: flex;
+            
+            
+        }
+
+        .nav-item {
+            cursor: pointer;
+            opacity: 0.75;
+            transition: all 0.3s ease;
+            background-color: aquamarine;
+            color: black;
+            width: 70px;
+            color: rgb(0, 0, 0);
+            height: 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            padding: 4px;
+            border-radius: 7px;
+            font-size: 20px;
+        }
+
+        .nav-item:hover {
+            opacity: 1;
+            text-shadow: 0 0 10px rgba(144, 189, 194, 0.9);
+        }
+
+        /* ===== Main Section ===== */
+        .main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            padding: 20px;
+            max-height: calc(100vh - 120px);
+        }
+
+        /* ===== Cards ===== */
+        .card {
+            height: 100px;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            font-size: 36px;
+            font-weight: bold;
+            letter-spacing: 2px;
+
+            background: rgba(0, 0, 0, 0.45);
+            border-radius: 20px;
+            border: 1px solid rgba(144, 189, 194, 0.35);
+
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+
+            box-shadow:
+                0 0 40px rgba(144, 189, 194, 0.45),
+                inset 0 0 25px rgba(255, 255, 255, 0.05);
+
+            cursor: pointer;
+            transition: box-shadow 0.35s ease;
+        }
+
+        .card:hover {
+            box-shadow:
+                0 0 65px rgba(144, 189, 194, 0.9),
+                inset 0 0 30px rgba(255, 255, 255, 0.08);
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ===== Top Navbar ===== -->
+    <div class="top-nav">
+        <div class="nav-left">
+            <img src="C:\Users\YUVRAJ\Downloads\Gemini_Generated_Image_ra08pjra08pjra08.png" alt="Logo">
+        </div>
+
+        <div class="nav-right">
+
+            <!-- Hidden Menu -->
+            <div class="nav-menu" id="navMenu">
+                <div class="nav-item">Home</div>
+                <div class="nav-item">Profile</div>
+                <div class="nav-item">Settings</div>
+            </div>
+
+            <!-- Menu Icon -->
+            <div class="menu-icon" onclick="toggleMenu()">☰</div>
+
+            <!-- Logout (always visible) -->
+            <div class="nav-item" onclick="logout()">Logout</div>
+        </div>
+    </div>
+
+    <!-- ===== Main Content ===== -->
+    <div class="main">
+        <div class="card" onclick="goToStudy()">Study</div>
+        <div class="card" onclick="openGame()">Game</div>
+    </div>
+
+    <script>
+        function toggleMenu() {
+            document.getElementById("navMenu").classList.toggle("active");
+        }
+
+
+        function goToStudy() {
+            window.location.href = "study.html";
+        }
+
+
+
+        function openGame() {
+            alert("Game Section");
+        }
+
+        function logout() {
+            window.location.href = "index.html";
+        }
+    </script>
+
+</body>
+
+</html>

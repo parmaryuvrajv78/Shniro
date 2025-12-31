@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up | Shinro</title>
+
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(120deg, black, rgb(18, 31, 28));
+            font-family: Arial, sans-serif;
+        }
+
+        /* ===== Card ===== */
+        .mid {
+            display: grid;
+            grid-template-rows: auto auto auto auto;
+            gap: 14px;
+            padding: 30px;
+            width: 300px;
+
+            background: linear-gradient(120deg,
+                    rgba(20, 31, 30, 0.55),
+                    rgba(0, 0, 0, 0.55),
+                    rgba(20, 31, 30, 0.55));
+            background-size: 300% 300%;
+
+            border-radius: 16px;
+            border: 1px solid rgba(144, 189, 194, 0.35);
+            backdrop-filter: blur(14px);
+
+            box-shadow:
+                0 0 30px rgba(144, 189, 194, 0.35),
+                inset 0 0 20px rgba(255, 255, 255, 0.05);
+
+            color: white;
+        }
+
+        .logo {
+            height: 100px;
+            width: 100px;
+            border-radius: 50%;
+            margin: auto;
+        }
+
+        .logEl {
+            height: 46px;
+            padding: 0 12px;
+            background: rgba(0, 0, 0, 0.35);
+            border: 1px solid rgba(144, 189, 194, 0.3);
+            border-radius: 8px;
+            color: white;
+            font-size: 16px;
+        }
+
+        .logEl::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .logEl:focus {
+            outline: none;
+            border-color: rgba(144, 189, 194, 0.9);
+            box-shadow: 0 0 12px rgba(144, 189, 194, 0.8);
+        }
+
+        .signup-btn {
+            height: 48px;
+            border-radius: 10px;
+            border: 1px solid rgba(144, 189, 194, 0.4);
+
+            background: linear-gradient(120deg,
+                    rgba(8, 239, 219, 0.6),
+                    rgba(59, 172, 170, 0.6),
+                    rgba(44, 125, 118, 0.6));
+            color: white;
+            font-size: 17px;
+            font-weight: 600;
+            cursor: pointer;
+
+            box-shadow: 0 0 20px rgba(144, 189, 194, 0.4);
+        }
+
+        .signup-btn.loading {
+            opacity: 0.7;
+            pointer-events: none;
+        }
+
+        .back {
+            text-align: center;
+            font-size: 14px;
+            cursor: pointer;
+            opacity: 0.8;
+        }
+
+        .back:hover {
+            text-decoration: underline;
+        }
+
+        /* ===== Popup ===== */
+        .popup {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.6);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: 0.3s;
+        }
+
+        .popup.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .popup-box {
+            background: rgba(0, 0, 0, 0.45);
+            padding: 22px;
+            width: 280px;
+            text-align: center;
+            border-radius: 14px;
+            border: 1px solid rgba(144, 189, 194, 0.4);
+            color: white;
+        }
+
+        .popup-box button {
+            margin-top: 15px;
+            padding: 8px 18px;
+            border-radius: 6px;
+            border: none;
+            background: rgb(8, 239, 219);
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="mid">
+        <img class="logo" src="C:\Users\YUVRAJ\Downloads\Gemini_Generated_Image_ra08pjra08pjra08.png">
+
+        <input type="text" placeholder="Full Name" class="logEl" id="name">
+        <input type="email" placeholder="Email" class="logEl" id="email">
+        <input type="password" placeholder="Password" class="logEl" id="password">
+
+        <button class="signup-btn" onclick="signup()">Create Account</button>
+
+        <div class="back" onclick="goToLogin()">← Back to Login</div>
+    </div>
+
+    <!-- Popup -->
+    <div class="popup" id="popup">
+        <div class="popup-box">
+            <h3 id="popup-title"></h3>
+            <p id="popup-msg"></p>
+            <button onclick="closePopup()">OK</button>
+        </div>
+    </div>
+
+    <!-- ===== Firebase Backend ===== -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-app.js";
+        import {
+            getAuth,
+            createUserWithEmailAndPassword
+        } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-auth.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyDjnkUU7ZmNAzD8IyoKh_jyuOVRF1v2B1Y",
+            authDomain: "login-demo-2521c.firebaseapp.com",
+            projectId: "login-demo-2521c",
+            storageBucket: "login-demo-2521c.firebasestorage.app",
+            messagingSenderId: "338995517174",
+            appId: "1:338995517174:web:eb2c65b0aebad0ef9f3ed7"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+
+        window.signup = function () {
+            const name = document.getElementById("name").value;
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+            const btn = document.querySelector(".signup-btn");
+
+            if (!name || !email || !password) {
+                showPopup("Error ❌", "Fill all fields");
+                return;
+            }
+
+            btn.classList.add("loading");
+            btn.innerText = "Creating...";
+
+            createUserWithEmailAndPassword(auth, email, password)
+                .then(() => {
+                    showPopup("Success ✅", "Account created successfully");
+
+                    setTimeout(() => {
+                        window.location.href = "home.html";
+                    }, 1200);
+                })
+                .catch(err => {
+                    showPopup("Error ❌", err.message);
+                })
+                .finally(() => {
+                    btn.classList.remove("loading");
+                    btn.innerText = "Create Account";
+                });
+        };
+
+        window.goToLogin = function () {
+            window.location.href = "index.html";
+        };
+
+        window.showPopup = function (title, msg) {
+            document.getElementById("popup-title").innerText = title;
+            document.getElementById("popup-msg").innerText = msg;
+            document.getElementById("popup").classList.add("active");
+        };
+
+        window.closePopup = function () {
+            document.getElementById("popup").classList.remove("active");
+        };
+    </script>
+
+</body>
+</html>

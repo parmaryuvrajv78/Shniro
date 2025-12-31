@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Study | Shinro</title>
+
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(120deg, black, rgb(18, 31, 28));
+            color: white;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* ===== Top Bar ===== */
+        .top-bar {
+            height: 70px;
+            margin: 15px;
+            padding: 0 25px;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            background: rgba(0, 0, 0, 0.45);
+            border-radius: 16px;
+            border: 1px solid rgba(144, 189, 194, 0.35);
+
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+
+            box-shadow: 0 0 25px rgba(144, 189, 194, 0.4);
+        }
+
+        /* ===== Back Button ===== */
+        .back-btn {
+            font-size: 26px;
+            cursor: pointer;
+            opacity: 0.75;
+            transition: 0.3s;
+        }
+
+        .back-btn:hover {
+            opacity: 1;
+            text-shadow: 0 0 10px rgba(144, 189, 194, 0.9);
+        }
+
+        /* ===== Logo ===== */
+        .logo {
+            height: 42px;
+            width: 42px;
+            border-radius: 50%;
+            object-fit: cover;
+            box-shadow:
+                0 0 12px rgba(144, 189, 194, 0.8),
+                inset 0 0 6px rgba(255, 255, 255, 0.3);
+        }
+
+        /* ===== Main Section ===== */
+        .main {
+            flex: 1;
+            padding: 20px;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 18px;
+        }
+
+        /* ===== Subject Card ===== */
+        .card {
+            height: 90px;
+
+            /* display: flex;
+            flex-direction: column; */
+            
+
+            display: grid;
+            grid-template-columns:  .1fr .9fr;
+            grid-template-rows:1;
+            align-items: center;
+            
+
+
+            font-size: 28px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            padding-left: 5px;
+
+            background: rgba(0, 0, 0, 0.45);
+            border-radius: 18px;
+            border: 1px solid rgba(144, 189, 194, 0.35);
+
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+
+            box-shadow:
+                0 0 35px rgba(144, 189, 194, 0.45),
+                inset 0 0 22px rgba(255, 255, 255, 0.05);
+
+            cursor: pointer;
+            transition: box-shadow 0.35s ease;
+            transition: padding-left 0.35s ease;
+        }
+
+        .card:hover {
+            box-shadow:
+                0 0 60px rgba(144, 189, 194, 0.9),
+                inset 0 0 28px rgba(255, 255, 255, 0.08);
+            
+        }
+
+        .subImg{
+            height: 40px;
+            width: 40px;
+            border-radius: 50%;
+            padding-left: 30px;
+        }
+
+        span{
+            padding-left: 30px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ===== Top Bar ===== -->
+    <div class="top-bar">
+        <div class="back-btn" onclick="goHome()">←</div>
+        <img src="C:\Users\YUVRAJ\Downloads\Gemini_Generated_Image_ra08pjra08pjra08.png" class="logo">
+    </div>
+
+    <!-- ===== Subjects ===== -->
+    <div class="main">
+
+        <div class="card" onclick="openSubject('pps')">
+            <img src="pps.png" alt="PPS" class="subImg">
+            <span>PPS</span>
+        </div>
+
+        <div class="card" onclick="openSubject('wd')">
+            <img src="wd.png" class="subImg" alt="WD">
+            <span>WD</span>
+        </div>
+
+        <div class="card" onclick="openSubject('calculas')">
+            <img src="calculas.webp" class="subImg" alt="Calculas">
+            <span>CALCULAS</span>
+        </div>
+
+        <div class="card" onclick="openSubject('eee')">
+            <img src="eee.jpeg" class="subImg" alt="EEE">
+            <span>EEE</span>
+        </div>
+
+        <div class="card" onclick="openSubject('foc')">
+            <img src="foc.jpg" class="subImg" alt="FOC">
+            <span>FOC</span>
+        </div>
+
+    </div>
+
+
+    <!-- ===== Script ===== -->
+    <script>
+        function goHome() {
+            window.location.href = "home.html";
+        }
+
+        function openSubject(subject) {
+            // subject pages like: pps.html, wd.html, etc.
+            window.location.href = `${subject}.html`;
+        }
+    </script>
+
+</body>
+
+</html>
